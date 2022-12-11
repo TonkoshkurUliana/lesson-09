@@ -1,7 +1,18 @@
+/**
+ * @exception WrongInputConsoleParametersException
+ * @author Uliana Tonkoshkur
+ * @version 1.0
+ **/
+
+package Task1;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    /**
+     * Наповнюємо меню
+     */
     static void menu() {
 
         System.out.println(" ");
@@ -25,22 +36,25 @@ public class Main {
 
         try {
             while (true) {
+                /** Створюємо меню */
                 menu();
+                /** Зчитуємо виюір користувача */
                 Scanner sc = new Scanner(System.in);
                 int number = sc.nextInt();
                 String text;
+                /** Викликаємо потрібну конструкцію */
                 switch (number) {
                     case 0: {
                         System.out.println("Введіть назву місяця");
                         sc = new Scanner(System.in);
                         text = sc.next().toUpperCase();
                         boolean flag = false;
+                        /** Перевіряємо правельність введення користувачем назви */
                         for (Months months : masMonth) {
                             if (months.name().equals(text)) {
                                 flag = true;
                             }
                         }
-
                         if (!flag) {
                             System.out.println("Цього місяця не існую");
                         } else {
@@ -49,6 +63,7 @@ public class Main {
                         break;
                     }
                     case 1: {
+                        /** Перевіряємо правельність введення користувачем назви */
                         System.out.println("Введіть пору року");
                         sc = new Scanner(System.in);
                         text = sc.next().toUpperCase();
@@ -72,9 +87,11 @@ public class Main {
                         break;
                     }
                     case 2: {
+                        /** Шукаємо  кількість днів, яку ввів користувач */
                         System.out.println("Введіть кількість днів:");
                         sc = new Scanner(System.in);
                         number = sc.nextInt();
+                        /** Перевіряємо правельність введення користувачем кількість днів */
                         boolean flag = MonthOfCountDay(masMonth, number);
                         if (!flag) {
                             System.out.println("Немає такої кількості");
@@ -91,6 +108,7 @@ public class Main {
 
                     case 3: {
                         int max = 0;
+                        /** Шукаємо найменьшу кількість днів і вовидимо місяці */
                         for (Months months : masMonth) {
                             if (months.getDays() > max) {
                                 max = months.getDays();
@@ -105,6 +123,7 @@ public class Main {
                     }
 
                     case 4: {
+                        /** Шукаємо найбільшу кількість днів і вовидимо місяці */
                         int max = 0;
                         for (Months months : masMonth) {
                             if (months.getDays() > max) {
@@ -120,10 +139,12 @@ public class Main {
                     }
 
                     case 5: {
+                        /**  Шукаємо наступну пору року */
                         System.out.println("Введіть пору року:");
                         sc = new Scanner(System.in);
                         text = sc.next().toUpperCase();
                         boolean flag = false;
+                        /** Перевіряємо правельність введення користувачем назви */
                         for (Seasons masSeasons : masSeason) {
                             if (masSeasons.name().equals(text)) {
                                 flag = true;
@@ -143,10 +164,12 @@ public class Main {
                     }
 
                     case 6: {
+                        /** Шукаємо попередню пору року*/
                         System.out.println("Введіть пору року:");
                         sc = new Scanner(System.in);
                         text = sc.next().toUpperCase();
                         boolean flag = false;
+                        /** Перевіряємо правельність введення користувачем назви */
                         for (Seasons masSeasons : masSeason) {
                             if (masSeasons.name().equals(text)) {
                                 flag = true;
@@ -165,6 +188,7 @@ public class Main {
                         break;
                     }
                     case 7: {
+                        /** Шукаємо парну кількість днів */
                         for (Months months : masMonth) {
                             if (months.getDays() % 2 == 0) {
                                 System.out.println(months.name());
@@ -173,6 +197,8 @@ public class Main {
                         break;
                     }
                     case 8: {
+                        /** Шукаємо не парну кількість днів */
+
                         for (Months months : masMonth) {
                             if (months.getDays() % 2 == 1) {
                                 System.out.println(months.name());
@@ -181,6 +207,8 @@ public class Main {
                         break;
                     }
                     case 9: {
+                        /** Перевіряємо правельність введення користувачем назви і
+                         *  чи має цей місяць парне число днів */
                         System.out.println("Введіть назву місяця");
                         sc = new Scanner(System.in);
                         text = sc.next().toUpperCase();
@@ -190,7 +218,6 @@ public class Main {
                                 flag = true;
                             }
                         }
-
                         if (!flag) {
                             System.out.println("Цього місяця не існую");
                         } else {
@@ -205,18 +232,17 @@ public class Main {
                     }
                 }
             }
+            /** Перевіряємо на помилку і викликаємо виключення */
         } catch (InputMismatchException e) {
-                String msg = "Значення повинні бути від 0 до 9";
-                throw new WrongInputConsoleParametersException(msg);
-            }
+            String msg = "Значення повинні бути від 0 до 9";
+            throw new WrongInputConsoleParametersException(msg);
         }
+    }
+
 
     /**
-     * @exception WrongInputConsoleParametersException
-     * @author Uliana
-     * @return null
-     * @see java code convention
-     **/
+     * Перевіряємо кількість днів з введенним користувачем числом
+     */
     private static boolean MonthOfCountDay(Months[] masMonth, int inputsc) {
         boolean flag = false;
 
